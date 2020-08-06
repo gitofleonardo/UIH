@@ -3,6 +3,7 @@ package cn.huangchengxi.uihlib.widget.popmenu
 import android.content.Context
 import android.content.res.ColorStateList
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
@@ -35,6 +36,7 @@ open class HNormalPopMenu(private val context: Context):
     }
     fun setTitleVisible(v:Boolean){
         showTitle=v
+        Log.e("titleView","${titleView==null}")
         if (showTitle){
             titleView.visibility=View.VISIBLE
         }else{

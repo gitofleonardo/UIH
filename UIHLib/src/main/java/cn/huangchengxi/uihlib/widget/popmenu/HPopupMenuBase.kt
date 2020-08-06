@@ -3,9 +3,11 @@ package cn.huangchengxi.uihlib.widget.popmenu
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.PopupWindow
 import cn.huangchengxi.uihlib.HPopMenu
 import cn.huangchengxi.uihlib.R
@@ -15,7 +17,7 @@ import kotlin.math.abs
 open class HPopupMenuBase(private val context: Context):
     HPopMenu {
     companion object{
-        private const val DEFAULT_DIM_AMOUNT=0.0F
+        private const val DEFAULT_DIM_AMOUNT=0.5F
         private val DEFAULT_ANIMATION_STYLE=
             R.style.PopupAnimationStyle
     }
@@ -51,14 +53,11 @@ open class HPopupMenuBase(private val context: Context):
             this.dismissListener?.invoke()
         }
     }
-    protected fun updateViewPosition(){
-        popupWindow.update()
-    }
     override fun showAttachToView(v: View) {
         if (!popupWindow.isShowing){
             popupWindow.animationStyle=animStyle
 
-            val view=popupWindow.contentView
+            val view=popupWindow.contentView.rootView
             view.measure(0,0)
             val width=view.measuredWidth
             val height=view.measuredHeight
@@ -79,7 +78,15 @@ open class HPopupMenuBase(private val context: Context):
                     popupWindow.showAsDropDown(v)
                 }
             }
+            updateDimAmount()
         }
+    }
+    private fun updateDimAmount(){
+        val decorView=popupWindow.contentView.rootView
+        val lp =decorView.layoutParams as WindowManager.LayoutParams
+        lp.flags=lp.flags.or(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        lp.dimAmount=dimAmount
+        windowManager.updateViewLayout(decorView,lp)
     }
 
     override fun dismiss() {

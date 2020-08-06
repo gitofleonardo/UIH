@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.huangchengxi.uihlib.R
 import cn.huangchengxi.uihlib.system.dp2px
+import cn.huangchengxi.uihlib.system.px2dp
 
-class HListPopMenu(private val context: Context,private val items:ArrayList<HPopListItem>):HNormalPopMenu(context) {
-    var orientation=LinearLayoutManager.VERTICAL
+class HListPopMenu(private val context: Context):HNormalPopMenu(context) {
+    var orientation=LinearLayoutManager.HORIZONTAL
     var dismissOnItemSelected=true
+    private val items=ArrayList<HPopListItem>()
     private val adapter=HPopListAdapter(items,orientation)
     private val layoutManager=LinearLayoutManager(context,orientation,false)
     private val recyclerView=RecyclerView(context)
@@ -24,14 +26,6 @@ class HListPopMenu(private val context: Context,private val items:ArrayList<HPop
     private var onItemClickListener:((HPopListItem)->Unit)?=null
 
     init {
-        val rvlp=RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,RecyclerView.LayoutParams.MATCH_PARENT)
-        recyclerView.layoutParams=rvlp
-        recyclerView.overScrollMode=RecyclerView.OVER_SCROLL_NEVER
-        val rootlp=FrameLayout.LayoutParams(dp2px(context,200.0f),FrameLayout.LayoutParams.WRAP_CONTENT)
-        rootView.layoutParams=rootlp
-        rootView.addView(recyclerView)
-        setContentNormalView(rootView)
-
         adapter.setOnItemClick {
             if (dismissOnItemSelected){
                 dismiss()
@@ -40,6 +34,17 @@ class HListPopMenu(private val context: Context,private val items:ArrayList<HPop
         }
         recyclerView.adapter=adapter
         recyclerView.layoutManager=layoutManager
+
+        val rvlp=RecyclerView.LayoutParams(dp2px(context,250.0f),RecyclerView.LayoutParams.MATCH_PARENT)
+        recyclerView.layoutParams=rvlp
+        recyclerView.overScrollMode=RecyclerView.OVER_SCROLL_NEVER
+        val rootlp=if (orientation==LinearLayoutManager.HORIZONTAL) FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT)
+        else FrameLayout.LayoutParams(dp2px(context,200.0f),FrameLayout.LayoutParams.WRAP_CONTENT)
+
+        rootView.layoutParams=rootlp
+        rootView.addView(recyclerView)
+
+        setContentNormalView(rootView)
     }
     fun addItem(item:HPopListItem){
         items.add(item)
@@ -49,6 +54,10 @@ class HListPopMenu(private val context: Context,private val items:ArrayList<HPop
         val currentSize=this.items.size
         this.items.addAll(items)
         adapter.notifyItemRangeInserted(currentSize,items.size)
+    }
+    fun removeAll(){
+        items.clear()
+        adapter.notifyDataSetChanged()
     }
 
     class HPopListAdapter(private val list:List<HPopListItem>,private val orientation:Int): RecyclerView.Adapter<PopViewHolder>() {

@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val list by lazy { findViewById<Button>(R.id.menus) }
 
     private val items=ArrayList<HListPopMenu.HPopListItem>()
-    private val listMenu by lazy {HListPopMenu(this,items)}
+    private val listMenu by lazy {HListPopMenu(this)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,16 +53,22 @@ class MainActivity : AppCompatActivity() {
             menu.gravity=Gravity.RIGHT
             val view=View.inflate(this,R.layout.view_test_text,null)
             menu.setContentNormalView(view)
+            menu.setTitleVisible(false)
             menu.setTitle("Right")
             menu.showAttachToView(it)
         }
         list.setOnClickListener {
+            listMenu.removeAll()
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
             listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
             listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
             listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
             listMenu.setTitle("Archlinux")
             listMenu.dismissOnItemSelected=true
             listMenu.gravity=Gravity.TOP
+            listMenu.setTitleVisible(false)
             listMenu.showAttachToView(it)
         }
     }
