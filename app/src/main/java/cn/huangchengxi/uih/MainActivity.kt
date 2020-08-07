@@ -1,15 +1,12 @@
 package cn.huangchengxi.uih
 
-import android.content.ClipData
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.*
 import android.widget.*
+import cn.huangchengxi.uihlib.widget.dialog.HialogBase
 import cn.huangchengxi.uihlib.widget.popmenu.HListPopMenu
 import cn.huangchengxi.uihlib.widget.popmenu.HNormalPopMenu
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     private val top by lazy { findViewById<Button>(R.id.top) }
@@ -17,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val left by lazy { findViewById<Button>(R.id.left) }
     private val right by lazy { findViewById<Button>(R.id.right) }
     private val list by lazy { findViewById<Button>(R.id.menus) }
+    private val dialogBase by lazy { findViewById<Button>(R.id.baseDialog) }
 
     private val items=ArrayList<HListPopMenu.HPopListItem>()
     private val listMenu by lazy {HListPopMenu(this)}
@@ -59,17 +57,26 @@ class MainActivity : AppCompatActivity() {
         }
         list.setOnClickListener {
             listMenu.removeAll()
-            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
-            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
-            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
-            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
-            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
-            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux"))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux",0))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux",1))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux",2))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux",3))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux",4))
+            listMenu.addItem(HListPopMenu.HPopListItem(true,R.drawable.archlinux,"Archlinux",5))
             listMenu.setTitle("Archlinux")
             listMenu.dismissOnItemSelected=true
             listMenu.gravity=Gravity.TOP
             listMenu.setTitleVisible(false)
+            listMenu.setOnItemClickListener {
+                Toast.makeText(this,"${it.id}",Toast.LENGTH_SHORT).show()
+            }
             listMenu.showAttachToView(it)
+        }
+        dialogBase.setOnClickListener {
+            val dialog=HialogBase.Builder(this).addText("This is a simple dialog")
+                .addList(arrayOf("hello","world","fuck","you")) {
+                    Toast.makeText(this,"$it",Toast.LENGTH_SHORT).show()
+                }.show()
         }
     }
 }

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.huangchengxi.uihlib.R
 import cn.huangchengxi.uihlib.system.dp2px
-import cn.huangchengxi.uihlib.system.px2dp
 
 class HListPopMenu(private val context: Context):HNormalPopMenu(context) {
     var orientation=LinearLayoutManager.HORIZONTAL
@@ -59,6 +58,9 @@ class HListPopMenu(private val context: Context):HNormalPopMenu(context) {
         items.clear()
         adapter.notifyDataSetChanged()
     }
+    fun setOnItemClickListener(listener:(HPopListItem)->Unit){
+        this.onItemClickListener=listener
+    }
 
     class HPopListAdapter(private val list:List<HPopListItem>,private val orientation:Int): RecyclerView.Adapter<PopViewHolder>() {
         private var onItemClickListener:((Int)->Unit)?=null
@@ -96,7 +98,7 @@ class HListPopMenu(private val context: Context):HNormalPopMenu(context) {
     class PopViewHolder(view:View): RecyclerView.ViewHolder(view) {
         val icon=view.findViewById<ImageView>(R.id.icon)
         val name=view.findViewById<TextView>(R.id.name)
-        val container=view.findViewById<LinearLayout>(R.id.container)
+        val container=view.findViewById<ViewGroup>(R.id.container)
     }
-    data class HPopListItem(var showIcon:Boolean,var iconResource:Int,var name:String)
+    data class HPopListItem(var showIcon:Boolean,var iconResource:Int,var name:String,var id:Int)
 }

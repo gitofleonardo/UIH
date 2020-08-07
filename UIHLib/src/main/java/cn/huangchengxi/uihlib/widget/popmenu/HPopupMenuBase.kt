@@ -3,13 +3,10 @@ package cn.huangchengxi.uihlib.widget.popmenu
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.FrameLayout
 import android.widget.PopupWindow
-import cn.huangchengxi.uihlib.HPopMenu
 import cn.huangchengxi.uihlib.R
 import java.lang.ref.WeakReference
 import kotlin.math.abs

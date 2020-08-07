@@ -36,7 +36,6 @@ open class HNormalPopMenu(private val context: Context):
     }
     fun setTitleVisible(v:Boolean){
         showTitle=v
-        Log.e("titleView","${titleView==null}")
         if (showTitle){
             titleView.visibility=View.VISIBLE
         }else{

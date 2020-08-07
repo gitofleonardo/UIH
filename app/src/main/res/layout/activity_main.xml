@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
     <LinearLayout
-
+        android:layout_gravity="center"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -36,9 +36,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
+            android:layout_gravity="center"
             android:text="list"
             android:id="@+id/menus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/baseDialog"
+            android:text="baseDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
+    <cn.huangchengxi.uihlib.widget.textinput.HInput
+        android:layout_margin="10dp"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </FrameLayout>
