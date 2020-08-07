@@ -11,4 +11,5 @@
         <item name="android:windowEnterAnimation">@anim/anim_hialog_enter</item>
         <item name="android:windowExitAnimation">@anim/anim_hialog_exit</item>
     </style>
+
 </resources>

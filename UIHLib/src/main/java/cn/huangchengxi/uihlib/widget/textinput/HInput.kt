@@ -6,6 +6,7 @@ import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -21,6 +22,7 @@ class HInput(context: Context, attrs:AttributeSet?, defStyle:Int):FrameLayout(co
     private var eyeIcon:ImageView?=null
     private var clearIcon:ImageView?=null
     private var visibleNow=false
+    private val imm by lazy { context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager}
 
     private var openId=R.drawable.eye_opened
     private var closeId=R.drawable.eye_closed
@@ -51,12 +53,13 @@ class HInput(context: Context, attrs:AttributeSet?, defStyle:Int):FrameLayout(co
             passwordInput!!.text=SpannableStringBuilder("")
         }
         toggleBtn!!.setOnClickListener {
+            val state=imm.isActive
             val hasSelection=passwordInput!!.hasSelection()
             val selectionStart=passwordInput!!.selectionStart
             val selectionEnd=passwordInput!!.selectionEnd
             if (!visibleNow){
                 //invisible now
-                passwordInput!!.inputType=InputType.TYPE_CLASS_TEXT
+                passwordInput!!.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 Glide.with(context).load(openId).into(eyeIcon!!)
                 visibleNow=true
             }else{
@@ -68,6 +71,9 @@ class HInput(context: Context, attrs:AttributeSet?, defStyle:Int):FrameLayout(co
                 passwordInput!!.setSelection(selectionStart,selectionEnd)
             }else{
                 passwordInput!!.setSelection(selectionStart)
+            }
+            if (!imm.isActive && state){
+                imm.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS)
             }
         }
     }

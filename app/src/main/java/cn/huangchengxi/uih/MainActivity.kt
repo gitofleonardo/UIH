@@ -1,27 +1,57 @@
 package cn.huangchengxi.uih
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import cn.huangchengxi.uihlib.activity.HBaseActivity
 import cn.huangchengxi.uihlib.widget.dialog.HialogBase
 import cn.huangchengxi.uihlib.widget.popmenu.HListPopMenu
 import cn.huangchengxi.uihlib.widget.popmenu.HNormalPopMenu
+import cn.huangchengxi.uihlib.widget.viewgroup.FlowLayoutManager
+import me.relex.circleindicator.CircleIndicator3
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : HBaseActivity(){
     private val top by lazy { findViewById<Button>(R.id.top) }
     private val bottom by lazy { findViewById<Button>(R.id.bottom) }
     private val left by lazy { findViewById<Button>(R.id.left) }
     private val right by lazy { findViewById<Button>(R.id.right) }
     private val list by lazy { findViewById<Button>(R.id.menus) }
     private val dialogBase by lazy { findViewById<Button>(R.id.baseDialog) }
+    private val toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
 
     private val items=ArrayList<HListPopMenu.HPopListItem>()
     private val listMenu by lazy {HListPopMenu(this)}
+    private val flowItems=ArrayList<FlowAdapter.FlowItem>()
+    private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerview) }
+    private val adapter=FlowAdapter(this,flowItems)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setStatusBarTransparent()
+        fitToolbarToWindow(toolbar)
+        setDarkStatusBar(false)
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        recyclerView.layoutManager=FlowLayoutManager(this)
+        recyclerView.adapter=adapter
+        adapter.notifyDataSetChanged()
         top.setOnClickListener {
             val menu= HNormalPopMenu(this)
             menu.gravity=Gravity.TOP
