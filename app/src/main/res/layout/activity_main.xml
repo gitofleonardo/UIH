@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
     <cn.huangchengxi.uihlib.widget.textinput.HInput
-        android:layout_margin="10dp"
         android:inputType="textPassword"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </FrameLayout>

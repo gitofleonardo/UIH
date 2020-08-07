@@ -43,6 +43,7 @@ class HInput(context: Context, attrs:AttributeSet?, defStyle:Int):FrameLayout(co
         }else{
             toggleBtn!!.visibility= View.GONE
         }
+        passwordInput!!.inputType=inputType
         view.background=bg
         array.recycle()
 
