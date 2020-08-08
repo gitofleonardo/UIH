@@ -1,17 +1,16 @@
 package cn.huangchengxi.uih
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.huangchengxi.uihlib.activity.HBaseActivity
 import cn.huangchengxi.uihlib.widget.dialog.HialogBase
 import cn.huangchengxi.uihlib.widget.popmenu.HListPopMenu
 import cn.huangchengxi.uihlib.widget.popmenu.HNormalPopMenu
-import cn.huangchengxi.uihlib.widget.viewgroup.FlowLayoutManager
-import me.relex.circleindicator.CircleIndicator3
+import cn.huangchengxi.uihlib.widget.recyclerview.FlowLayoutManager
 
 class MainActivity : HBaseActivity(){
     private val top by lazy { findViewById<Button>(R.id.top) }
@@ -21,6 +20,7 @@ class MainActivity : HBaseActivity(){
     private val list by lazy { findViewById<Button>(R.id.menus) }
     private val dialogBase by lazy { findViewById<Button>(R.id.baseDialog) }
     private val toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
+    private val pullBtn by lazy { findViewById<Button>(R.id.pullBtn) }
 
     private val items=ArrayList<HListPopMenu.HPopListItem>()
     private val listMenu by lazy {HListPopMenu(this)}
@@ -50,8 +50,41 @@ class MainActivity : HBaseActivity(){
         flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
         flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
         flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
 
-        recyclerView.layoutManager=FlowLayoutManager(this)
+        recyclerView.layoutManager=
+            FlowLayoutManager(this)
         recyclerView.adapter=adapter
         adapter.notifyDataSetChanged()
         top.setOnClickListener {
@@ -86,6 +119,9 @@ class MainActivity : HBaseActivity(){
             menu.setTitleVisible(false)
             menu.setTitle("Right")
             menu.showAttachToView(it)
+        }
+        pullBtn.setOnClickListener {
+            startActivity(Intent(this,PullRefreshActivity::class.java))
         }
         list.setOnClickListener {
             listMenu.removeAll()

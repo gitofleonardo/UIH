@@ -1,14 +1,14 @@
-package cn.huangchengxi.uihlib.widget.viewgroup
+package cn.huangchengxi.uihlib.widget.recyclerview
 
 import android.content.Context
-import android.util.Log
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
 
-class FlowLayoutManager(private val context: Context): RecyclerView.LayoutManager() {
+class FlowLayoutManager(private val context: Context):
+    HLayoutManagerBase(context){
     private var currentTopOffset=0
     private var currentLeftOffset=0
     private var verticalOffset=0
@@ -18,19 +18,14 @@ class FlowLayoutManager(private val context: Context): RecyclerView.LayoutManage
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
         return RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT,RecyclerView.LayoutParams.WRAP_CONTENT)
     }
-
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
-        super.onLayoutChildren(recycler, state)
-        if (state==null || recycler==null) return
-        if (state.itemCount==0){
-            removeAndRecycleAllViews(recycler)
-        }
-        if (state.isPreLayout) return
-        detachAndScrapAttachedViews(recycler)
-        layoutChildren(recycler,state)
-    }
-    private fun layoutChildren(recycler: RecyclerView.Recycler,state: RecyclerView.State){
+    override fun layoutChildren(recycler: RecyclerView.Recycler,state: RecyclerView.State){
         val screenWidth=width
+        currentLeftOffset=0
+        currentTopOffset=0
+        totalChildHeight=0
+        verticalOffset=0
+        singleItemHeightWithMarginAndPadding=0
+
         for (i in 0 until state.itemCount){
             val view=recycler.getViewForPosition(i)
             addView(view)
@@ -59,6 +54,7 @@ class FlowLayoutManager(private val context: Context): RecyclerView.LayoutManage
             layoutDecorated(view,currentLeftOffset,currentTopOffset,currentLeftOffset+width+right,currentTopOffset+height+bottom)
             currentLeftOffset+=width+left
         }
+        //scrollVerticallyBy(verticalOffset,recycler, state)
     }
 
     override fun scrollVerticallyBy(
