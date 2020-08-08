@@ -21,6 +21,7 @@ class MainActivity : HBaseActivity(){
     private val dialogBase by lazy { findViewById<Button>(R.id.baseDialog) }
     private val toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
     private val pullBtn by lazy { findViewById<Button>(R.id.pullBtn) }
+    private val switchBtn by lazy { findViewById<Button>(R.id.switchActivity) }
 
     private val items=ArrayList<HListPopMenu.HPopListItem>()
     private val listMenu by lazy {HListPopMenu(this)}
@@ -122,6 +123,9 @@ class MainActivity : HBaseActivity(){
         }
         pullBtn.setOnClickListener {
             startActivity(Intent(this,PullRefreshActivity::class.java))
+        }
+        switchBtn.setOnClickListener {
+            startActivity(Intent(this,SwitchLayoutActivity::class.java))
         }
         list.setOnClickListener {
             listMenu.removeAll()

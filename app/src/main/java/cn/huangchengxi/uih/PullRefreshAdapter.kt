@@ -15,7 +15,7 @@ class PullRefreshAdapter(private val context: Context,private val list:ArrayList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PullViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.view_pull_item,parent,false)
+        val view=LayoutInflater.from(parent.context).inflate(R.layout.view_switch_item,parent,false)
         return PullViewHolder(view)
     }
 

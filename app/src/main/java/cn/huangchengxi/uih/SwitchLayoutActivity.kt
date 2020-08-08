@@ -1,16 +1,17 @@
 package cn.huangchengxi.uih
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
-import cn.huangchengxi.uihlib.activity.HBaseActivity
 import cn.huangchengxi.uihlib.widget.recyclerview.OverScrollLayoutManager
+import cn.huangchengxi.uihlib.widget.recyclerview.SwitchLayoutManager
 
-class PullRefreshActivity : HBaseActivity(){
+class SwitchLayoutActivity : AppCompatActivity() {
     private val pullItems=ArrayList<PullRefreshAdapter.PullItem>()
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerview) }
     private val adapter by lazy { PullRefreshAdapter(this,pullItems) }
     private val layoutManager by lazy {
-        OverScrollLayoutManager(this)
+        SwitchLayoutManager(this,SwitchLayoutManager.VERTICAL)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

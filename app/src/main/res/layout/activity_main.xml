@@ -59,6 +59,12 @@
             android:text="pull refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <Button
+            android:text="SwitchActivity"
+            android:id="@+id/switchActivity"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <cn.huangchengxi.uihlib.widget.textinput.HInput
         android:inputType="textPassword"

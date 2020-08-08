@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="replacement">Replacement</string>
+    <string name="text">text</string>
+    <string name="header">header</string>
+    <string name="footer">footer</string>
 </resources>
