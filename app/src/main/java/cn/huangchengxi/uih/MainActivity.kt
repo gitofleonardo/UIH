@@ -49,6 +49,8 @@ class MainActivity : HBaseActivity(){
         flowItems.add(FlowAdapter.FlowItem("1ds"))
         flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
         flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+
         recyclerView.layoutManager=FlowLayoutManager(this)
         recyclerView.adapter=adapter
         adapter.notifyDataSetChanged()

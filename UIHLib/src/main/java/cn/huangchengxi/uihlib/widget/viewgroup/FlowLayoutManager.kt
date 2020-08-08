@@ -1,6 +1,7 @@
 package cn.huangchengxi.uihlib.widget.viewgroup
 
 import android.content.Context
+import android.util.Log
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
@@ -10,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 class FlowLayoutManager(private val context: Context): RecyclerView.LayoutManager() {
     private var currentTopOffset=0
     private var currentLeftOffset=0
+    private var verticalOffset=0
+    private var totalChildHeight=0
+    private var singleItemHeightWithMarginAndPadding=0
 
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
         return RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT,RecyclerView.LayoutParams.WRAP_CONTENT)
@@ -37,6 +41,8 @@ class FlowLayoutManager(private val context: Context): RecyclerView.LayoutManage
             val left=view.marginLeft
             val right=view.marginRight
             val bottom=view.marginBottom
+            singleItemHeightWithMarginAndPadding=height+top+bottom
+
             if (width+left+right>screenWidth){
                 width=screenWidth-left-right
             }
@@ -53,6 +59,25 @@ class FlowLayoutManager(private val context: Context): RecyclerView.LayoutManage
             layoutDecorated(view,currentLeftOffset,currentTopOffset,currentLeftOffset+width+right,currentTopOffset+height+bottom)
             currentLeftOffset+=width+left
         }
+    }
+
+    override fun scrollVerticallyBy(
+        dy: Int,
+        recycler: RecyclerView.Recycler?,
+        state: RecyclerView.State?
+    ): Int {
+        var willScroll=dy
+        totalChildHeight=currentTopOffset+singleItemHeightWithMarginAndPadding
+        if (dy<0 && verticalOffset==0){
+            willScroll=0
+        }else if (dy>0 && verticalOffset>totalChildHeight-height){
+            willScroll=0
+        }else if (dy<0 && verticalOffset<0){
+            willScroll=-verticalOffset
+        }
+        offsetChildrenVertical(-willScroll)
+        verticalOffset+=willScroll
+        return willScroll
     }
 
     override fun canScrollVertically(): Boolean {
