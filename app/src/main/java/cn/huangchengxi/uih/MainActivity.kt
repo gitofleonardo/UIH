@@ -2,6 +2,7 @@ package cn.huangchengxi.uih
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
@@ -35,8 +36,9 @@ class MainActivity : HBaseActivity(){
         setStatusBarTransparent()
         fitToolbarToWindow(toolbar)
         setDarkStatusBar(false)
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
+        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
         flowItems.add(FlowAdapter.FlowItem("1dsadas"))
+        flowItems.add(FlowAdapter.FlowItem("1ds"))
         flowItems.add(FlowAdapter.FlowItem("1ds"))
         flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
         flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
@@ -46,43 +48,6 @@ class MainActivity : HBaseActivity(){
         flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
         flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
         flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsa"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadas"))
-        flowItems.add(FlowAdapter.FlowItem("1ds"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dsadasd"))
-        flowItems.add(FlowAdapter.FlowItem("1dasdasdsssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdsdsadasdsa"))
 
         recyclerView.layoutManager=
             FlowLayoutManager(this)
@@ -125,7 +90,7 @@ class MainActivity : HBaseActivity(){
             startActivity(Intent(this,PullRefreshActivity::class.java))
         }
         switchBtn.setOnClickListener {
-            startActivity(Intent(this,SwitchLayoutActivity::class.java))
+            startActivity(Intent(this,SlideButtonLayoutActivity::class.java))
         }
         list.setOnClickListener {
             listMenu.removeAll()

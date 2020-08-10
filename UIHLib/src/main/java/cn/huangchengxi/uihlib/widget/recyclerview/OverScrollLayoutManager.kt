@@ -68,12 +68,12 @@ class OverScrollLayoutManager(private val context: Context):
     private fun scrollToNormalPositionWithAnimation(){
         if (verticalScroll>0 && verticalScroll< topOffset-height) return
         val willScroll=if (verticalScroll<0) verticalScroll else (height-(topOffset-verticalScroll))
-        var lastPos=0.0f
-        animator=ValueAnimator.ofFloat(0.0f,willScroll.toFloat())
+        var lastPos=0
+        animator=ValueAnimator.ofInt(0,willScroll)
         animator!!.duration=200
         animator!!.addUpdateListener {
-            val movement=(it.animatedValue as Float - lastPos).toInt()
-            lastPos=it.animatedValue as Float
+            val movement=it.animatedValue as Int - lastPos
+            lastPos=it.animatedValue as Int
             offsetChildrenVertical(movement)
             verticalScroll-=movement
         }
