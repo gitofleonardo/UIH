@@ -151,7 +151,6 @@ class PageLayoutManager(private val context: Context, private val orientation:In
         }
         animator!!.start()
     }
-
     override fun canScrollVertically(): Boolean {
         return orientation== VERTICAL
     }

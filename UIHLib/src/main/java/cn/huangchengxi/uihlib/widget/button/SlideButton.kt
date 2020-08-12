@@ -2,10 +2,8 @@ package cn.huangchengxi.uihlib.widget.button
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
-import android.util.Log
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.*
@@ -29,17 +27,13 @@ class SlideButton(context: Context,attrs:AttributeSet?):FrameLayout(context,attr
     private var isOpen=false
     private var trackV=false
 
+    private var defaultStrategy=DefaultStrategyImp() as ToggleStrategy
+
     init {
         contentView= View.inflate(context,R.layout.widget_slide_btn,this)
         contentContainer=findViewById(R.id.content)
         buttonsContainer=findViewById(R.id.btns)
         childParent=findViewById(R.id.childParent)
-        addButton("Delete",Color.RED, OnClickListener {
-            Toast.makeText(context,"Delete",Toast.LENGTH_SHORT).show()
-        })
-        addButton("Top",Color.YELLOW, OnClickListener {
-            Toast.makeText(context,"Top",Toast.LENGTH_SHORT).show()
-        })
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -76,10 +70,15 @@ class SlideButton(context: Context,attrs:AttributeSet?):FrameLayout(context,attr
                 event.action=MotionEvent.ACTION_CANCEL
             }
             MotionEvent.ACTION_UP,MotionEvent.ACTION_CANCEL->{
-                if (offsetScroll<btnWidth/2){
+                val velocity=velocityTracker.xVelocity
+
+                if (defaultStrategy.canCloseButton(offsetScroll.toInt(),btnWidth,velocity.toInt())){
                     closeButton()
-                }else{
+                }else if (defaultStrategy.canOpenButtons(offsetScroll.toInt(),btnWidth,velocity.toInt())){
                     openButton()
+                }else{
+                    if (defaultStrategy.defaultStrategy()==ToggleStrategy.Strategy.OPEN) openButton()
+                    else closeButton()
                 }
                 interceptedEvent=false
             }
@@ -165,6 +164,12 @@ class SlideButton(context: Context,attrs:AttributeSet?):FrameLayout(context,attr
         }
         animator!!.start()
     }
+    fun isButtonsOpened():Boolean{
+        return isOpen
+    }
+    fun setContentView(view:View){
+        childParent!!.addView(view)
+    }
 
     override fun addView(child: View?) {
         childParent!!.addView(child)
@@ -172,11 +177,6 @@ class SlideButton(context: Context,attrs:AttributeSet?):FrameLayout(context,attr
 
     override fun addView(child: View?, index: Int) {
         childParent!!.addView(child, index)
-    }
-
-    override fun performLongClick(): Boolean {
-        if (interceptedEvent) return false
-        return super.performLongClick()
     }
 
     fun addButton(title:String,color: Int,listener: OnClickListener){
@@ -217,5 +217,36 @@ class SlideButton(context: Context,attrs:AttributeSet?):FrameLayout(context,attr
 
     override fun canScrollVertically(direction: Int): Boolean {
         return false
+    }
+
+    fun setToggleStrategy(strategy:ToggleStrategy){
+        this.defaultStrategy=strategy
+    }
+    interface ToggleStrategy{
+        enum class Strategy{
+            OPEN,
+            CLOSE
+        }
+        fun canOpenButtons(offset:Int,btnWidth:Int,velocity:Int):Boolean
+        fun canCloseButton(offset: Int,btnWidth: Int,velocity: Int):Boolean
+        fun defaultStrategy():Strategy
+    }
+    private class DefaultStrategyImp:ToggleStrategy{
+        override fun canOpenButtons(offset: Int, btnWidth: Int, velocity: Int): Boolean {
+            if (offset>btnWidth/2){
+                return true
+            }
+            return false
+        }
+        override fun canCloseButton(offset: Int, btnWidth: Int, velocity: Int): Boolean {
+            if (offset<btnWidth/2){
+                return true
+            }
+            return false
+        }
+
+        override fun defaultStrategy(): ToggleStrategy.Strategy {
+            return ToggleStrategy.Strategy.CLOSE
+        }
     }
 }
